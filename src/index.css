@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Year-in-Pixels Design System - Dark Editorial Theme */
+
+@layer base {
+  :root {
+    --background: 220 20% 10%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 18% 13%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 18% 15%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 210 20% 95%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 220 15% 20%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 220 15% 22%;
+    --accent-foreground: 210 20% 95%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
+    --ring: 142 70% 45%;
+
+    --radius: 0.5rem;
+
+    /* Productivity Colors */
+    --productivity-high: 142 70% 45%;
+    --productivity-medium: 38 92% 55%;
+    --productivity-low: 0 72% 55%;
+    --productivity-unmarked: 45 93% 58%;
+    --productivity-future: 220 15% 25%;
+    --productivity-today-ring: 200 80% 60%;
+
+    /* Shadows */
+    --shadow-glow: 0 0 20px hsl(142 70% 45% / 0.3);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4);
+
+    /* Sidebar */
+    --sidebar-background: 220 18% 11%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 142 70% 45%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 142 70% 45%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 18% 13%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 18% 15%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 210 20% 95%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 220 15% 20%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 215 15% 55%;
+
+    --accent: 220 15% 22%;
+    --accent-foreground: 210 20% 95%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
+    --ring: 142 70% 45%;
+    
+    --sidebar-background: 220 18% 11%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 142 70% 45%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 142 70% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .pixel-cell {
+    @apply w-3 h-3 rounded-sm transition-all duration-200 ease-out;
+  }
+
+  .pixel-cell-high {
+    background-color: hsl(var(--productivity-high));
+    box-shadow: 0 0 8px hsl(var(--productivity-high) / 0.5);
+  }
+
+  .pixel-cell-medium {
+    background-color: hsl(var(--productivity-medium));
+    box-shadow: 0 0 8px hsl(var(--productivity-medium) / 0.4);
+  }
+
+  .pixel-cell-low {
+    background-color: hsl(var(--productivity-low));
+    box-shadow: 0 0 8px hsl(var(--productivity-low) / 0.4);
+  }
+
+  .pixel-cell-unmarked {
+    background-color: hsl(var(--productivity-unmarked));
+    box-shadow: 0 0 6px hsl(var(--productivity-unmarked) / 0.3);
+  }
+
+  .pixel-cell-future {
+    background-color: hsl(var(--productivity-future));
+  }
+
+  .pixel-cell-today {
+    ring: 2px solid hsl(var(--productivity-today-ring));
+    box-shadow: 0 0 12px hsl(var(--productivity-today-ring) / 0.5);
+  }
+
+  .pixel-cell-clickable {
+    @apply cursor-pointer hover:scale-125 hover:z-10;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(53, 1fr);
+    gap: 3px;
+  }
+
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50 rounded-xl;
+    box-shadow: var(--shadow-card);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-subtle {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.2s ease-out;
+  }
+
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
