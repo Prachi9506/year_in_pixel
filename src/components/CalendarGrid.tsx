@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { format, startOfYear, addDays, getDay } from 'date-fns';
+import { startOfYear, addDays, getDay } from 'date-fns';
 import { DayCell } from './DayCell';
 import {
   type ProductivityLevel,
-  loadYearData,
   formatDateKey,
 } from '@/lib/productivity-storage';
+import { cn } from '@/lib/utils';
 
 interface CalendarGridProps {
   year: number;
@@ -72,7 +72,13 @@ export function CalendarGrid({ year, data, onDayChange }: CalendarGridProps) {
             {weeks.map((_, weekIndex) => {
               const label = monthLabels.find((m) => m.weekIndex === weekIndex);
               return (
-                <div key={weekIndex} className="w-3 text-xs text-muted-foreground">
+                <div 
+                  key={weekIndex} 
+                  className={cn(
+                    "w-3 text-xs text-muted-foreground",
+                    label && weekIndex !== 0 && "ml-4" // Align labels with separated grid columns
+                  )}
+                >
                   {label?.month}
                 </div>
               );
@@ -97,21 +103,30 @@ export function CalendarGrid({ year, data, onDayChange }: CalendarGridProps) {
           
           {/* Grid of days */}
           <div className="flex" style={{ gap: '3px' }}>
-            {weeks.map((week, weekIndex) => (
-              <div key={weekIndex} className="flex flex-col" style={{ gap: '3px' }}>
-                {week.map((date, dayIndex) => (
-                  <div key={dayIndex} className="w-3 h-3">
-                    {date && (
-                      <DayCell
-                        date={date}
-                        productivity={data[formatDateKey(date)] || null}
-                        onProductivityChange={(level) => onDayChange(date, level)}
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            ))}
+            {weeks.map((week, weekIndex) => {
+              // Check if this week starts a new month to add spacing
+              const isNewMonth = monthLabels.some(m => m.weekIndex === weekIndex && weekIndex !== 0);
+              
+              return (
+                <div 
+                  key={weekIndex} 
+                  className={cn("flex flex-col", isNewMonth && "ml-4")} 
+                  style={{ gap: '3px' }}
+                >
+                  {week.map((date, dayIndex) => (
+                    <div key={dayIndex} className="w-3 h-3">
+                      {date && (
+                        <DayCell
+                          date={date}
+                          productivity={data[formatDateKey(date)] || null}
+                          onProductivityChange={(level) => onDayChange(date, level)}
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
